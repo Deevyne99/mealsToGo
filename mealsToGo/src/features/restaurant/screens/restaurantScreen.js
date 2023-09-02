@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import { Searchbar } from 'react-native-paper'
 import styled from 'styled-components/native'
+
 import {
   StyleSheet,
-  Text,
   View,
   SafeAreaView,
-  Platform,
   StatusBar,
+  FlatList,
 } from 'react-native'
 import { RestaurantInfoCard } from '../components/restaurantInfoCard'
+import { Spacer } from '../../../spacer/spacer'
 
 export const RestaurantScreen = () => {
   const [searchQuery, setSearchQuery] = React.useState('')
@@ -23,9 +24,31 @@ export const RestaurantScreen = () => {
           value={searchQuery}
         />
       </Search>
-      <List>
-        <RestaurantInfoCard />
-      </List>
+      <RestaurantList
+        data={[
+          { name: 1 },
+          { name: 2 },
+          { name: 3 },
+          { name: 4 },
+          { name: 5 },
+          { name: 6 },
+          { name: 7 },
+          { name: 8 },
+          { name: 9 },
+          { name: 10 },
+          { name: 11 },
+          { name: 12 },
+          { name: 13 },
+          { name: 14 },
+        ]}
+        renderItem={() => (
+          <Spacer position='bottom' size='large'>
+            <RestaurantInfoCard />
+          </Spacer>
+        )}
+        keyExtractor={(item) => item.name}
+        contentContainerStyle={{ padding: 16 }}
+      />
     </SafeArea>
   )
 }
@@ -40,9 +63,8 @@ const Search = styled(View)`
   padding: ${(props) => props.theme.space[3]};
   color: white;
 `
-const List = styled(View)`
-  flex: 1;
-  background-color: ${(props) => props.theme.colors.bg.primary};
-  padding: ${(props) => props.theme.space[3]};
-  color: white;
-`
+const RestaurantList = styled(FlatList).attrs({
+  contentContainerStyle: {
+    padding: 16,
+  },
+})``
